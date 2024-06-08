@@ -18,3 +18,5 @@ app.use((req, res) => {
         title: '404 - Page not found'
     })
 })
+
+console.log(process.env.USER_ID)
