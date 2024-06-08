@@ -1,0 +1,11 @@
+:root{
+    --COL_green_dark: #ccd5ae;
+    --COL_green_light: #e9edc9;
+    --COL_cream_light: #fefae0;
+    --COL_brown_dark: #d4a373;
+    --COL_brown_light: #faedcd;
+}
+
+body{
+    background-color: var(--COL_cream_light);
+}

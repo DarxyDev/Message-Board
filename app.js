@@ -10,6 +10,9 @@ mongoose.connect(connectString).then((result) => {
     app.listen(8080);
 }).catch((err) => console.log(err))
 
+//set public folder
+app.use(express.static('public'));
+
 //set ejs view engine
 app.set('view engine', 'ejs');
 
