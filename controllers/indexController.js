@@ -1,8 +1,12 @@
 const Message = require('../models/message');
 
 const index_get = (req, res) => {
+    Message.find()
+    .sort({ createdAt: 1 })
+    .then((messages)=>{
     console.log('rendering index');
-    res.render('index', { title: 'Home' });
+    res.render('index', { title: 'Home', messages});
+    })
 }
 
 const new_get = (req, res) => {

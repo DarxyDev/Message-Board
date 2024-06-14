@@ -56,3 +56,15 @@ body {
 #main-nav > ul > li:hover{
     opacity: .8;
 }
+
+/* messages */
+
+.messages-container{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+}
+
+.message-card{
+    background-color: var(--COL_TINT_DARK_Low);
+}

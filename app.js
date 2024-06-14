@@ -5,11 +5,17 @@ const indexRoutes = require('./routes/indexRoutes')
 
 const app = express();
 
+//
+const PORT_NUM = 8080;
 //connect to mongodb and start server
 const connectString = process.env.MONGO_CONNECTION;
+
+console.log('Attempting to connect to DB...');
+const startTime = Date.now();
 mongoose.connect(connectString).then((result) => {
-    console.log('connected to DB');
-    app.listen(8080);
+    console.log(`Connected to DB in ${Date.now() - startTime}ms`);
+    console.log(`Server is listening on port ${PORT_NUM}`)
+    app.listen(PORT_NUM);
 }).catch((err) => console.log(err))
 
 //set static public folder
