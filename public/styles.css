@@ -61,8 +61,7 @@ body {
 .chat-container{
     display:flex;
     flex-direction: column;
-    margin-top:auto;
-    margin-bottom: 50px;
+    margin: auto 25px 50px 25px;
     gap:25px;
     
     
@@ -82,7 +81,6 @@ body {
 
 .message-card{
     background-color: var(--COL_TINT_DARK_Low);
-    margin: 0px 25px;
 }
 .message-username{
     font-weight:bold;
@@ -92,4 +90,7 @@ body {
 }
 .message-content:before{
     content: '\0000a0';
+}
+
+.message-form-container{
 }
