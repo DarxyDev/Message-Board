@@ -71,7 +71,6 @@ body {
 .messages-container{
     display:flex;
     flex-direction:column-reverse; /* starts scroll at bottom, keep messages in reverse order */
-    gap:1rem;
     overflow:scroll;
     margin-top:auto;
 }
@@ -80,7 +79,11 @@ body {
 }
 
 .message-card{
+    padding:10px;
     background-color: var(--COL_TINT_DARK_Low);
+}
+.message-card:nth-child(2n - 1){
+    background-color: var(--COL_TINT_DARK_Med);
 }
 .message-username{
     font-weight:bold;
