@@ -92,7 +92,7 @@ body {
     max-width:100%;
 }
 .message-content:before{
-    content: '\0000a0';
+    content: '\0000a0'; /* adds tab before message */
 }
 
 .message-form-container{
