@@ -5,16 +5,7 @@
 <body class="main">
   <%- include('./partials/nav.ejs') %>
 
-  <div class="messages-container">
-    <% if(messages){messages.forEach(message =>{ %>
-    <div class="message-card">
-      <p class="message-username"> <%= message.username %> </p>
-      <p class="message-content"> <%= message.content %> </p>
-    </div>
-    <% })} else { %>
-    <p>No messages to display.</p>
-    <% } %>
-  </div>
+  Welcome.
 
   <%- include('./partials/footer.ejs') %>
 </body>

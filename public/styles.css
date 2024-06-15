@@ -57,14 +57,39 @@ body {
     opacity: .8;
 }
 
-/* messages */
-
+/* chat/messages */
+.chat-container{
+    display:flex;
+    flex-direction: column;
+    margin-top:auto;
+    margin-bottom: 50px;
+    gap:25px;
+    
+    
+    max-height: calc(100vh - 75px);
+    max-width: 66vw;
+}
 .messages-container{
     display:flex;
-    flex-direction:column;
+    flex-direction:column-reverse; /* starts scroll at bottom, keep messages in reverse order */
     gap:1rem;
+    overflow:scroll;
+    margin-top:auto;
+}
+
+.message-form-container{
 }
 
 .message-card{
     background-color: var(--COL_TINT_DARK_Low);
+    margin: 0px 25px;
+}
+.message-username{
+    font-weight:bold;
+}
+.message-content{
+    max-width:100%;
+}
+.message-content:before{
+    content: '\0000a0';
 }

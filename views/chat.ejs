@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs')%>
+
+<body class="main">
+
+  <%- include('./partials/nav.ejs') %>
+  <div class="chat-container">
+    <div class="messages-container">
+      <% if(messages){messages.forEach(message =>{ %>
+      <div class="message-card">
+        <p class="message-username"> <%= message.username %> </p>
+        <p class="message-content"> <%= message.content %> </p>
+      </div>
+      <% })} else { %>
+      <p>No messages to display.</p>
+      <% } %>
+    </div>
+    <div class="message-form-container">
+      <form action="/chat" method="POST">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name='username' required>
+
+        <label for="content">Message: </label>
+        <textarea id="content" name="content" required></textarea>
+
+        <button>Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>
