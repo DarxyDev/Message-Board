@@ -18,7 +18,7 @@
       <% } %>
     </div>
     <div class="message-form-container">
-      <form action="/chat" method="POST">
+      <form action="/chat" method="POST" id="chat-form">
         <label for="username">Username: </label>
         <input type="text" id="username" name='username' required>
 
@@ -36,6 +36,20 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+
+    const form = document.getElementById('chat-form');
+    const usernameInput = document.getElementById('username');
+    const messageInput = document.getElementById('content');
+    form.addEventListener('submit',(e)=>{
+        //e.preventDefault()
+        const data = {
+            username: usernameInput.value,
+            message: messageInput.value
+        }
+        if(!data.username || !data.message) return;
+            socket.emit('chat message', data);
+        
+    })
   </script>
 
 </body>

@@ -17,6 +17,13 @@ io.on('connection',(socket)=>{
         console.log('user disconnected')
     })
 })
+
+io.on('connection', (socket)=>{
+    socket.on('chat message',(val)=>{
+        console.log(val);
+    })
+})
+
 //constants
 const PORT_NUM = 8080;
 //connect to mongodb and start server
