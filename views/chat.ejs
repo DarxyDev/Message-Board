@@ -7,15 +7,15 @@
 
   <%- include('./partials/nav.ejs') %>
   <div class="chat-container">
-    <div class="messages-container">
-      <% if(messages){messages.forEach(message =>{ %>
+    <div class="messages-container" id="messages-container">
+      <!-- <% if(messages){messages.forEach(message =>{ %>
       <div class="message-card">
         <p class="message-username"> <%= message.username %> </p>
         <p class="message-content"> <%= message.content %> </p>
       </div>
       <% })} else { %>
       <p class="message-card">No messages to display. Be the first!</p>
-      <% } %>
+      <% } %> -->
     </div>
     <div class="message-form-container">
       <form action="/chat" method="POST" id="chat-form">
@@ -29,27 +29,51 @@
       </form>
     </div>
   </div>
-
   <%- include('./partials/footer.ejs') %>
 
   <!-- socket.io script -->
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
-
     const form = document.getElementById('chat-form');
     const usernameInput = document.getElementById('username');
     const messageInput = document.getElementById('content');
     form.addEventListener('submit',(e)=>{
-        //e.preventDefault()
+        e.preventDefault()
+        console.log('form will not post to DB while preventDefault()')
         const data = {
             username: usernameInput.value,
-            message: messageInput.value
+            content: messageInput.value
         }
-        if(!data.username || !data.message) return;
+        if(!data.username || !data.content) return;
             socket.emit('chat message', data);
         
     })
+
+    socket.on('chat message', (data)=>{
+        postMessage(data);
+    })
+
+    //setup messages
+    const messageContainer = document.getElementById('messages-container')
+    function postMessage(message) {
+        const usernameEl = document.createElement('p');
+        usernameEl.classList.add('message-username');
+        usernameEl.innerText = message.username;
+        const contentEl = document.createElement('p');
+        contentEl.classList.add('message-content');
+        contentEl.innerText = message.content;
+        const messageEl = document.createElement('div');
+        messageEl.classList.add('message-card');
+        messageEl.appendChild(usernameEl);
+        messageEl.appendChild(contentEl);
+        messageContainer.insertBefore(messageEl, messageContainer.firstChild)
+        //messageContainer.appendChild(messageEl);
+    } 
+    const oldMessages = JSON.parse(`<%- JSON.stringify(messages) %>`);
+    
+    oldMessages.forEach(message => postMessage(message));
+
   </script>
 
 </body>
