@@ -39,9 +39,7 @@
     const usernameInput = document.getElementById('username');
     const messageInput = document.getElementById('content');
     form.addEventListener('submit', async (e) => {
-      console.log('started?')
       e.preventDefault()
-      console.log('form will not post to DB while preventDefault()')
       const data = {
         username: usernameInput.value,
         content: messageInput.value
@@ -59,7 +57,10 @@
           cache: 'default',
           body: JSON.stringify(data)
         })
-        .then(res => console.log(res))
+        .then(() => {
+            messageInput.value = '';
+            messageInput.focus();
+        })
         .catch(err => console.log(err));
 
     })

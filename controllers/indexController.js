@@ -30,8 +30,8 @@ const chat_get = (req, res) => {
 const chat_post = (req, res) => {
     
     const message = new Message(req.body)
-    message.save().then((res) => {
-        //console.log(res);
+    message.save().then(() => {
+        res.end('Message posted to DB.');
 
     }).catch((error) => {
         console.log(error);
