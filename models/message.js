@@ -14,6 +14,6 @@ const messageSchema = new Schema({
     timestamps: true,
 })
 
-const Message = mongoose.model('cluster0', messageSchema);
+const Message = mongoose.model('collection1', messageSchema);
 
 module.exports = Message;
