@@ -38,42 +38,56 @@
     const form = document.getElementById('chat-form');
     const usernameInput = document.getElementById('username');
     const messageInput = document.getElementById('content');
-    form.addEventListener('submit',(e)=>{
-        e.preventDefault()
-        console.log('form will not post to DB while preventDefault()')
-        const data = {
-            username: usernameInput.value,
-            content: messageInput.value
-        }
-        if(!data.username || !data.content) return;
-            socket.emit('chat message', data);
-        
+    form.addEventListener('submit', async (e) => {
+      console.log('started?')
+      e.preventDefault()
+      console.log('form will not post to DB while preventDefault()')
+      const data = {
+        username: usernameInput.value,
+        content: messageInput.value
+      }
+      if (!data.username || !data.content) return;
+      //emit message
+      socket.emit('chat message', data);
+      //send to db
+      const myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      fetch('/chat', {
+          method: 'POST',
+          headers: myHeaders,
+          mode: 'cors',
+          cache: 'default',
+          body: JSON.stringify(data)
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+
     })
 
-    socket.on('chat message', (data)=>{
-        postMessage(data);
+    socket.on('chat message', (data) => {
+      postMessage(data);
     })
 
     //setup messages
     const messageContainer = document.getElementById('messages-container')
-    function postMessage(message) {
-        const usernameEl = document.createElement('p');
-        usernameEl.classList.add('message-username');
-        usernameEl.innerText = message.username;
-        const contentEl = document.createElement('p');
-        contentEl.classList.add('message-content');
-        contentEl.innerText = message.content;
-        const messageEl = document.createElement('div');
-        messageEl.classList.add('message-card');
-        messageEl.appendChild(usernameEl);
-        messageEl.appendChild(contentEl);
-        messageContainer.insertBefore(messageEl, messageContainer.firstChild)
-        //messageContainer.appendChild(messageEl);
-    } 
-    const oldMessages = JSON.parse(`<%- JSON.stringify(messages) %>`);
-    
-    oldMessages.forEach(message => postMessage(message));
 
+    function postMessage(message) {
+      const usernameEl = document.createElement('p');
+      usernameEl.classList.add('message-username');
+      usernameEl.innerText = message.username;
+      const contentEl = document.createElement('p');
+      contentEl.classList.add('message-content');
+      contentEl.innerText = message.content;
+      const messageEl = document.createElement('div');
+      messageEl.classList.add('message-card');
+      messageEl.appendChild(usernameEl);
+      messageEl.appendChild(contentEl);
+      messageContainer.insertBefore(messageEl, messageContainer.firstChild)
+      //messageContainer.appendChild(messageEl);
+    }
+    const oldMessages = JSON.parse(`<%- JSON.stringify(messages) %>`);
+
+    oldMessages.forEach(message => postMessage(message));
   </script>
 
 </body>

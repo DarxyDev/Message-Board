@@ -20,7 +20,6 @@ io.on('connection',(socket)=>{
 
 io.on('connection', (socket)=>{
     socket.on('chat message',(data)=>{
-        console.log(data);
         io.emit('chat message', data)
     })
 })
@@ -47,6 +46,14 @@ app.set('view engine', 'ejs');
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+app.use(require("body-parser").json());
+
 //routes
 app.use('/', indexRoutes);
 

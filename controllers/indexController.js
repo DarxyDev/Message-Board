@@ -21,16 +21,17 @@ const index_get = (req, res) => {
 
 const chat_get = (req, res) => {
     Message.find()
-        .sort({ createdAt: -1 }) //switch to 1 if not displaying in reverse order
+        .sort({ createdAt: 1 }) //switch to -1 if displaying in reverse order
         .then((messages) => {
             res.render('chat', { title: 'Chat Room', messages });
         })
 }
 
 const chat_post = (req, res) => {
+    
     const message = new Message(req.body)
-    message.save().then(() => {
-        res.redirect('/chat');
+    message.save().then((res) => {
+        //console.log(res);
 
     }).catch((error) => {
         console.log(error);
